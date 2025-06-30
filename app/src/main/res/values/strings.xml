@@ -3,4 +3,37 @@
     <string name="title_home">Home</string>
     <string name="title_predict">Predict</string>
     <string name="title_profile">Profile</string>
+    
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="smoking_history_options">
+        <item>Never</item>
+        <item>Former</item>
+        <item>Current</item>
+    </string-array>
+
+    <string-array name="cough_frequency_options">
+        <item>Rare</item>
+        <item>Occasional</item>
+        <item>Frequent</item>
+    </string-array>
+
+    <string-array name="allergy_status_options">
+        <item>No allergies</item>
+        <item>Dust allergy</item>
+        <item>Pollen allergy</item>
+        <item>Food allergy</item>
+    </string-array>
+
+    <string-array name="chronic_conditions_options">
+        <item>None</item>
+        <item>Asthma</item>
+        <item>Bronchitis</item>
+        <item>COPD</item>
+    </string-array>
+
 </resources>
