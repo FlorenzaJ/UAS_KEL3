@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import edu.uph.uas_kelompok3.PredictionResultActivity;
 import edu.uph.uas_kelompok3.R;
 
 public class PredictFragment extends Fragment {
@@ -58,15 +60,25 @@ public class PredictFragment extends Fragment {
             String chronic = actvChronicConditions.getText().toString();
             float breathingDifficulty = sliderBreathingDifficulty.getValue();
 
-            String result = "Age: " + age +
-                    "\nGender: " + gender +
-                    "\nSmoking: " + smoking +
-                    "\nCough: " + cough +
-                    "\nAllergy: " + allergy +
-                    "\nChronic: " + chronic +
-                    "\nBreathing Difficulty: " + breathingDifficulty;
+            // Basic validation
+            if (age.isEmpty() || gender.isEmpty()) {
+                Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Toast.makeText(getContext(), "Prediction Generated!\n" + result, Toast.LENGTH_LONG).show();
+            // Navigate to PredictionResultActivity
+            Intent intent = new Intent(getActivity(), PredictionResultActivity.class);
+
+            // Pass data to results activity (optional - currently using dummy data)
+            intent.putExtra("age", age);
+            intent.putExtra("gender", gender);
+            intent.putExtra("smoking", smoking);
+            intent.putExtra("cough", cough);
+            intent.putExtra("allergy", allergy);
+            intent.putExtra("chronic", chronic);
+            intent.putExtra("breathingDifficulty", breathingDifficulty);
+
+            startActivity(intent);
         });
 
         return root;
