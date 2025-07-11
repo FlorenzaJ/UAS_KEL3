@@ -16,8 +16,8 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-        android:name=".PredictionResultActivity"
-        android:exported="false"/>
+            android:name=".PredictionResultActivity"
+            android:exported="false"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="true"

@@ -75,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -170,7 +170,7 @@
                             android:text="Moderate"
                             android:textSize="28sp"
                             android:textStyle="bold"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange_peel"
                             android:layout_marginEnd="12dp" />
 
                         <TextView
@@ -179,8 +179,8 @@
                             android:layout_height="wrap_content"
                             android:text="50% Risk Score"
                             android:textSize="12sp"
-                            android:background="@drawable/risk_score_bg"
-                            android:textColor="#E65100"
+                            android:background="@drawable/status_badge_moderate"
+                            android:textColor="@color/persimmon"
                             android:padding="8dp"
                             android:layout_gravity="center_vertical" />
 
@@ -213,7 +213,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:background="@drawable/circle_indicator"
-                                android:backgroundTint="#4CAF50"
+                                android:backgroundTint="@color/pigment_green"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginEnd="12dp" />
 
@@ -255,7 +255,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:background="@drawable/circle_indicator"
-                                android:backgroundTint="#FF9800"
+                                android:backgroundTint="@color/orange_peel"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginEnd="12dp" />
 
@@ -297,7 +297,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:background="@drawable/circle_indicator"
-                                android:backgroundTint="#4CAF50"
+                                android:backgroundTint="@color/pigment_green"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginEnd="12dp" />
 
@@ -365,11 +365,11 @@
                             android:id="@+id/btnConsultDoctor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
                             android:layout_weight="1"
+                            android:backgroundTint="@color/dark_cyan"
                             android:text="Consult Doctor"
                             android:textColor="@color/white"
-                            android:backgroundTint="#4CAF50"
-                            android:layout_marginEnd="8dp"
                             app:cornerRadius="8dp"
                             app:icon="@drawable/ic_chat"
                             app:iconTint="@color/white" />
@@ -447,6 +447,7 @@
                             android:layout_height="wrap_content"
                             android:text="Caution"
                             android:textSize="12sp"
+                            android:textColor="@color/dev_maroon"
                             android:background="@drawable/status_badge_caution"
                             android:padding="6dp" />
 
@@ -482,6 +483,7 @@
                             android:layout_height="wrap_content"
                             android:text="Caution"
                             android:textSize="12sp"
+                            android:textColor="@color/dev_maroon"
                             android:background="@drawable/status_badge_caution"
                             android:padding="6dp" />
 
@@ -517,6 +519,7 @@
                             android:layout_height="wrap_content"
                             android:text="Moderate"
                             android:textSize="12sp"
+                            android:textColor="@color/persimmon"
                             android:background="@drawable/status_badge_moderate"
                             android:padding="6dp" />
 
@@ -552,6 +555,7 @@
                             android:layout_height="wrap_content"
                             android:text="Good"
                             android:textSize="12sp"
+                            android:textColor="@color/cadmium_green"
                             android:background="@drawable/status_badge_good"
                             android:padding="6dp" />
 
@@ -587,6 +591,7 @@
                             android:layout_height="wrap_content"
                             android:text="Good"
                             android:textSize="12sp"
+                            android:textColor="@color/cadmium_green"
                             android:background="@drawable/status_badge_good"
                             android:padding="6dp" />
 
@@ -608,134 +613,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!-- Bottom Navigation -->
-    <LinearLayout
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:elevation="8dp"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-            android:id="@+id/navHome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_home"
-                android:tint="#666666"
-                android:contentDescription="Home" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="4dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navPredict"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_chart"
-                android:tint="#4CAF50"
-                android:contentDescription="Predict" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Predict"
-                android:textSize="12sp"
-                android:textColor="#4CAF50"
-                android:layout_marginTop="4dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navConsult"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_chat"
-                android:tint="#666666"
-                android:contentDescription="Consult" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Consult"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="4dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navProfile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile"
-                android:tint="#666666"
-                android:contentDescription="Profile" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="4dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

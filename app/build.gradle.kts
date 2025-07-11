@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
 }
+apply(plugin = "realm-android") // Wajib agar Realm aktif
 
 android {
     namespace = "edu.uph.uas_kelompok3"
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "edu.uph.uas_kelompok3"
-        minSdk = 28
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -35,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation("io.realm:realm-android-library:10.15.1")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
