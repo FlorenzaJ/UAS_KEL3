@@ -19,30 +19,56 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import edu.uph.uas_kelompok3.Adapter.PredictionAdapter;
 import edu.uph.uas_kelompok3.Model.Predict;
 import edu.uph.uas_kelompok3.R;
 import edu.uph.uas_kelompok3.databinding.FragmentHomeBinding;
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class HomeFragment extends Fragment {
     TextView txvWelcome, txvStatus, txvLastUpdated;
     CardView crvPredict, consultation_card, crvHistory, crvSetting;
     RecyclerView rcvRecentPredictions;
-    private static PredictionAdapter predictionAdapter;
-    List<Predict> predictionList;
+    Realm realm;
+    private RealmResults<Predict> predictions;
+    PredictionAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initViews(view);
-        setupRecyclerView();
         setupClickListeners();
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        realm = Realm.getDefaultInstance();
+        predictions = realm.where(Predict.class)
+                .sort("createdAt", Sort.DESCENDING)
+                .findAll();
+
+        adapter = new PredictionAdapter(predictions);
+        rcvRecentPredictions.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcvRecentPredictions.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateCurrentStatus();
+    }
+
     public void initViews(View view) {
         txvWelcome = view.findViewById(R.id.txvWelcome);
         txvStatus = view.findViewById(R.id.txvStatus);
@@ -52,22 +78,6 @@ public class HomeFragment extends Fragment {
         crvHistory = view.findViewById(R.id.crvHistory);
         crvSetting = view.findViewById(R.id.crvSetting);
         rcvRecentPredictions = view.findViewById(R.id.rcvRecentPredictions);
-    }
-
-    public void setupRecyclerView() {
-        predictionList = new ArrayList<>();
-        // Sample data
-        predictionList.add(new Predict("Apr 15, 2025", "Good", "Low Risk"));
-        predictionList.add(new Predict("Mar 30, 2025", "Good", "Low Risk"));
-        predictionList.add(new Predict("Mar 15, 2025", "Moderate", "Medium Risk"));
-
-        predictionAdapter = new PredictionAdapter(predictionList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rcvRecentPredictions.setLayoutManager(layoutManager);
-        rcvRecentPredictions.setAdapter(predictionAdapter);
-
-        rcvRecentPredictions.setNestedScrollingEnabled(false);
-        rcvRecentPredictions.setHasFixedSize(true);
     }
 
     public void setupClickListeners() {
@@ -112,5 +122,36 @@ public class HomeFragment extends Fragment {
 //                startActivity(intent);
 //            }
 //        });
+    }
+
+    public void updateCurrentStatus() {
+        if (predictions != null && predictions.size() > 0) {
+            Predict latest = predictions.first();
+            if (latest != null) {
+                String status = getStatusFromRisk(latest.getRiskLevel());
+                txvStatus.setText(status);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                txvLastUpdated.setText("Last updated: " + sdf.format(latest.getCreatedAt()));
+            }
+        } else {
+            txvStatus.setText("No Data");
+            txvLastUpdated.setText("No predictions yet");
+        }
+    }
+
+    public String getStatusFromRisk(String riskLevel) {
+        switch (riskLevel) {
+            case "Low": return "Good";
+            case "Moderate": return "Moderate";
+            case "High": return "Poor";
+            default: return "Unknown";
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (realm != null) realm.close();
     }
 }

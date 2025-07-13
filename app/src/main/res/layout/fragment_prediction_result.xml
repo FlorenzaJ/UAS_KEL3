@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".PredictionResultFragment"
     android:background="#F8F9FA">
 
     <androidx.appcompat.widget.Toolbar
@@ -95,6 +97,7 @@
                 android:backgroundTint="@color/white">
 
                 <View
+                    android:id="@+id/vColor"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
                     android:background="#FF9800" />
@@ -379,14 +382,15 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTint="@color/white"
                             android:text="Track Progress"
                             android:textColor="@color/black"
-                            android:backgroundTint="@color/white"
-                            android:layout_marginStart="8dp"
                             app:cornerRadius="8dp"
-                            app:strokeColor="#E0E0E0"
-                            app:strokeWidth="1dp"
                             app:icon="@drawable/ic_chart"
+                            android:layout_marginStart="8dp"
+                            app:strokeColor="#E0E0E0"
+                            app:iconSize="24dp"
+                            app:strokeWidth="1dp"
                             app:iconTint="@color/black" />
 
                     </LinearLayout>

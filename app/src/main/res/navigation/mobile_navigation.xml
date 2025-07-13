@@ -9,17 +9,35 @@
         android:id="@+id/nav_home"
         android:name="edu.uph.uas_kelompok3.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_predictionResultFragment"
+            app:destination="@id/predictionResultFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_predict"
         android:name="edu.uph.uas_kelompok3.ui.predict.PredictFragment"
         android:label="@string/title_predict"
-        tools:layout="@layout/fragment_predict" />
+        tools:layout="@layout/fragment_predict">
+        <action
+            android:id="@+id/action_predictFragment_to_predictionResultFragment"
+            app:destination="@id/predictionResultFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="edu.uph.uas_kelompok3.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/predictionResultFragment"
+        android:name="edu.uph.uas_kelompok3.PredictionResultFragment"
+        android:label="Prediction Result"
+        tools:layout="@layout/fragment_prediction_result">
+        <argument
+            android:name="predictionId"
+            app:argType="string" />
+    </fragment>
 </navigation>

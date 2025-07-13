@@ -1,30 +1,87 @@
 package edu.uph.uas_kelompok3.Model;
 
-public class Predict {
-    public String date;
-    public String status;
-    public String riskLevel;
+import java.util.Date;
+import java.util.UUID;
 
-    public Predict(String date, String status, String riskLevel) {
-        this.date = date;
-        this.status = status;
-        this.riskLevel = riskLevel;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Predict extends RealmObject {
+    @PrimaryKey
+    private String id = UUID.randomUUID().toString();
+    private int age;
+    private String gender;
+    private String smokingHistory;
+    private float breathingDifficulty;
+    private String coughFrequency;
+    private String allergies;
+    private String chronicConditions;
+    private String riskLevel;
+    private float riskScore;
+    private Date createdAt = new Date();
+
+    public String getId() {
+        return id;
     }
 
-    public String getDate() {
-        return date;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public int getAge() {
+        return age;
     }
 
-    public String getStatus() {
-        return status;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getSmokingHistory() {
+        return smokingHistory;
+    }
+
+    public void setSmokingHistory(String smokingHistory) {
+        this.smokingHistory = smokingHistory;
+    }
+
+    public float getBreathingDifficulty() {
+        return breathingDifficulty;
+    }
+
+    public void setBreathingDifficulty(float breathingDifficulty) {
+        this.breathingDifficulty = breathingDifficulty;
+    }
+
+    public String getCoughFrequency() {
+        return coughFrequency;
+    }
+
+    public void setCoughFrequency(String coughFrequency) {
+        this.coughFrequency = coughFrequency;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public String getChronicConditions() {
+        return chronicConditions;
+    }
+
+    public void setChronicConditions(String chronicConditions) {
+        this.chronicConditions = chronicConditions;
     }
 
     public String getRiskLevel() {
@@ -33,5 +90,21 @@ public class Predict {
 
     public void setRiskLevel(String riskLevel) {
         this.riskLevel = riskLevel;
+    }
+
+    public float getRiskScore() {
+        return riskScore;
+    }
+
+    public void setRiskScore(float riskScore) {
+        this.riskScore = riskScore;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
