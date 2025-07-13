@@ -24,6 +24,8 @@ import java.util.Locale;
 
 import edu.uph.uas_kelompok3.Model.Predict;
 import io.realm.Realm;
+import android.content.res.ColorStateList;
+import androidx.core.content.ContextCompat;
 
 public class PredictionResultFragment extends Fragment {
 
@@ -37,10 +39,10 @@ public class PredictionResultFragment extends Fragment {
     private CardView mainCard;
     private ImageView riskIcon;
     private View smokingIndicator, breathingIndicator, ageIndicator;
-
     private Realm realm;
     private Predict prediction;
     private String predictionId;
+    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class PredictionResultFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prediction_result, container, false);
-
+        rootView = view; // simpan root view
         initViews(view);
         setupClickListeners();
         loadPredictionData();
@@ -254,19 +256,48 @@ public class PredictionResultFragment extends Fragment {
     }
 
     private void setupRiskLevelStyling(String riskLevel) {
-        int textColor;
+        int textColor, bgColor, iconColor, barColor;
+        int iconBackgroundRes;
+        
         switch (riskLevel.toLowerCase()) {
             case "low":
-                textColor = Color.parseColor("#2E7D32");
+                textColor = ContextCompat.getColor(requireContext(), R.color.cadmium_green);
+                bgColor = ContextCompat.getColor(requireContext(), R.color.green_drift);
+                iconColor = ContextCompat.getColor(requireContext(), R.color.pigment_green);
+                barColor = ContextCompat.getColor(requireContext(), R.color.pigment_green);
+                iconBackgroundRes = R.drawable.circle_warning_bg_low;
                 break;
             case "high":
-                textColor = Color.parseColor("#C62828");
+                textColor = ContextCompat.getColor(requireContext(), R.color.dev_maroon);
+                bgColor = ContextCompat.getColor(requireContext(), R.color.surface_blush);
+                iconColor = ContextCompat.getColor(requireContext(), R.color.accent_red);
+                barColor = ContextCompat.getColor(requireContext(), R.color.accent_red);
+                iconBackgroundRes = R.drawable.circle_warning_bg_high;
                 break;
             default: // moderate
-                textColor = Color.parseColor("#E65100");
+                textColor = ContextCompat.getColor(requireContext(), R.color.persimmon);
+                bgColor = ContextCompat.getColor(requireContext(), R.color.latte);
+                iconColor = ContextCompat.getColor(requireContext(), R.color.orange_peel);
+                barColor = ContextCompat.getColor(requireContext(), R.color.orange_peel);
+                iconBackgroundRes = R.drawable.circle_warning_bg_moderate;
                 break;
         }
+        
+        // Set risk level text color
         tvRiskLevel.setTextColor(textColor);
+
+        // Set risk score background and text color
+        tvRiskScore.setBackgroundTintList(ColorStateList.valueOf(bgColor));
+        tvRiskScore.setTextColor(textColor);
+
+        // Set warning icon background and tint
+        riskIcon.setBackgroundResource(iconBackgroundRes);
+        riskIcon.setColorFilter(iconColor);
+
+        // Set top view color
+        if (rootView != null) {
+            rootView.findViewById(R.id.vColor).setBackgroundTintList(ColorStateList.valueOf(barColor));
+        }
     }
 
     private void setStatusIndicator(View indicator, String status) {
@@ -274,35 +305,35 @@ public class PredictionResultFragment extends Fragment {
         int color;
         switch (status) {
             case "good":
-                color = Color.parseColor("#4CAF50");
+                color = ContextCompat.getColor(requireContext(), R.color.pigment_green);
                 break;
             case "caution":
-                color = Color.parseColor("#FF9800");
+                color = ContextCompat.getColor(requireContext(), R.color.orange_peel);
                 break;
-            default:
-                color = Color.parseColor("#F44336");
+            default: // danger
+                color = ContextCompat.getColor(requireContext(), R.color.accent_red);
                 break;
         }
-        indicator.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
+        indicator.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
     private void setStatusBadge(TextView textView, String status) {
         int backgroundColor, textColor;
         switch (status) {
             case "good":
-                backgroundColor = Color.parseColor("#E8F5E8");
-                textColor = Color.parseColor("#2E7D32");
+                backgroundColor = ContextCompat.getColor(requireContext(), R.color.green_drift);
+                textColor = ContextCompat.getColor(requireContext(), R.color.cadmium_green);
                 break;
             case "moderate":
-                backgroundColor = Color.parseColor("#FFF3E0");
-                textColor = Color.parseColor("#E65100");
+                backgroundColor = ContextCompat.getColor(requireContext(), R.color.latte);
+                textColor = ContextCompat.getColor(requireContext(), R.color.persimmon);
                 break;
-            default:
-                backgroundColor = Color.parseColor("#FFEBEE");
-                textColor = Color.parseColor("#C62828");
+            default: // caution
+                backgroundColor = ContextCompat.getColor(requireContext(), R.color.surface_blush);
+                textColor = ContextCompat.getColor(requireContext(), R.color.dev_maroon);
                 break;
         }
-        textView.setBackgroundTintList(android.content.res.ColorStateList.valueOf(backgroundColor));
+        textView.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         textView.setTextColor(textColor);
     }
 
