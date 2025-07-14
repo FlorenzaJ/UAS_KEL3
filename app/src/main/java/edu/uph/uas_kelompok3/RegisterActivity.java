@@ -34,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Inisialisasi view
         edtNama = findViewById(R.id.edtNama);
         edtEmail = findViewById(R.id.edtEmail);
         edtTanggalLahir = findViewById(R.id.edtTanggalLahir);
@@ -43,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         spnGender = findViewById(R.id.spnGender);
 
-        // Setup gender dropdown
         String[] genderOptions = {"Male", "Female", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -87,6 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         }
 
+        if (tanggalLahir.length() != 10) {
+            edtTanggalLahir.setError("Tanggal lahir harus 10 karakter (dd/mm/yyyy)");
+            valid = false;
+        }
+
         if (gender.isEmpty()) {
             spnGender.setError("Pilih gender terlebih dahulu");
             valid = false;
@@ -107,6 +110,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void toHome() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("nama", edtNama.getText().toString().trim());
+        intent.putExtra("email", edtEmail.getText().toString().trim());
+        intent.putExtra("gender", spnGender.getText().toString().trim());
+        intent.putExtra("tanggalLahir", edtTanggalLahir.getText().toString().trim());
         startActivity(intent);
     }
 }
