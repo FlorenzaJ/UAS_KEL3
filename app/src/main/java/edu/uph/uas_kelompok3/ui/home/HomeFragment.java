@@ -34,7 +34,7 @@ import io.realm.Sort;
 
 public class HomeFragment extends Fragment {
     TextView txvWelcome, txvStatus, txvLastUpdated;
-    CardView crvPredict, consultation_card, crvHistory, crvSetting;
+    CardView crvPredict, crvSetting;
     RecyclerView rcvRecentPredictions;
     Realm realm;
     private RealmResults<Predict> predictions;
@@ -74,8 +74,6 @@ public class HomeFragment extends Fragment {
         txvStatus = view.findViewById(R.id.txvStatus);
         txvLastUpdated = view.findViewById(R.id.txvLastUpdated);
         crvPredict = view.findViewById(R.id.crvPredict);
-        consultation_card = view.findViewById(R.id.consultation_card);
-        crvHistory = view.findViewById(R.id.crvHistory);
         crvSetting = view.findViewById(R.id.crvSetting);
         rcvRecentPredictions = view.findViewById(R.id.rcvRecentPredictions);
     }
@@ -93,35 +91,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        consultation_card.setOnClickListener(new View.OnClickListener() {
+        crvSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
                     BottomNavigationView bottomNav = getActivity().findViewById(R.id.nav_view);
                     if (bottomNav != null) {
-                        bottomNav.setSelectedItemId(R.id.nav_predict);
+                        bottomNav.setSelectedItemId(R.id.nav_profile);
                     }
                 }
             }
         });
-
-//        crvHistory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Navigate to history screen
-//                Intent intent = new Intent(getActivity(), HistoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        crvSetting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Navigate to settings screen
-//                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     public void updateCurrentStatus() {
