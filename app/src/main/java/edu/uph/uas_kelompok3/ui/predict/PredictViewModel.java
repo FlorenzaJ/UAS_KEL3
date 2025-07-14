@@ -17,3 +17,4 @@ public class PredictViewModel extends ViewModel {
         return mText;
     }
 }
+
