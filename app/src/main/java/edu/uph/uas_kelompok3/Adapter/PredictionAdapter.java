@@ -68,37 +68,31 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.Pr
     }
 
     private void setRiskLevelColor(TextView textView, String riskLevel) {
-        int backgroundColor, textColor;
+        int textColor;
+        int backgroundResId;
 
         switch (riskLevel) {
             case "Low":
-                backgroundColor = Color.parseColor("#4CAF50"); // Green
-                textColor = Color.WHITE;
+                backgroundResId = R.drawable.status_badge_low;
+                textColor = Color.parseColor("#166534"); // cadmium_green
                 break;
             case "Moderate":
-                backgroundColor = Color.parseColor("#FF9800"); // Orange
-                textColor = Color.WHITE;
+                backgroundResId = R.drawable.status_badge_moderate;
+                textColor = Color.parseColor("#E65100"); // persimmon
                 break;
             case "High":
-                backgroundColor = Color.parseColor("#F44336"); // Red
-                textColor = Color.WHITE;
+                backgroundResId = R.drawable.status_badge_high;
+                textColor = Color.parseColor("#991B1B"); // dev_maroon
                 break;
             default:
-                backgroundColor = Color.parseColor("#9E9E9E"); // Gray
+                backgroundResId = R.drawable.status_badge_caution;
                 textColor = Color.WHITE;
                 break;
         }
 
-        textView.setBackground(createRoundedBackground(backgroundColor));
+        textView.setBackgroundResource(backgroundResId);
         textView.setTextColor(textColor);
         textView.setPadding(16, 8, 16, 8);
-    }
-
-    private android.graphics.drawable.GradientDrawable createRoundedBackground(int color) {
-        android.graphics.drawable.GradientDrawable drawable = new android.graphics.drawable.GradientDrawable();
-        drawable.setColor(color);
-        drawable.setCornerRadius(16f);
-        return drawable;
     }
 
     @Override
