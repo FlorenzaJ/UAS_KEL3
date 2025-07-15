@@ -63,10 +63,6 @@ public class HomeFragment extends Fragment {
                 .equalTo("userId", userId)
                 .sort("createdAt", Sort.DESCENDING)
                 .findAll();
-        } else {
-            predictions = realm.where(Predict.class)
-                .sort("createdAt", Sort.DESCENDING)
-                .findAll();
         }
 
         adapter = new PredictionAdapter(predictions);
