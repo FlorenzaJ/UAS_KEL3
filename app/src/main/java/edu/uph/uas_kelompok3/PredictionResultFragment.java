@@ -66,13 +66,11 @@ public class PredictionResultFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        // Header
         view.findViewById(R.id.btnBack).setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.popBackStack();
         });
 
-        // Main card elements
         tvTitle = view.findViewById(R.id.tvTitle);
         tvDate = view.findViewById(R.id.tvDate);
         tvRiskLevel = view.findViewById(R.id.tvRiskLevel);
@@ -80,7 +78,6 @@ public class PredictionResultFragment extends Fragment {
         riskIcon = view.findViewById(R.id.riskIcon);
         mainCard = view.findViewById(R.id.mainCard);
 
-        // Key factors
         tvSmokingStatus = view.findViewById(R.id.tvSmokingStatus);
         tvBreathingStatus = view.findViewById(R.id.tvBreathingStatus);
         tvAgeStatus = view.findViewById(R.id.tvAgeStatus);
@@ -92,7 +89,6 @@ public class PredictionResultFragment extends Fragment {
         breathingIndicator = view.findViewById(R.id.breathingIndicator);
         ageIndicator = view.findViewById(R.id.ageIndicator);
 
-        // Prediction details
         tvLungCapacity = view.findViewById(R.id.tvLungCapacity);
         tvRespiratoryRate = view.findViewById(R.id.tvRespiratoryRate);
         tvOxygenSat = view.findViewById(R.id.tvOxygenSat);
@@ -105,7 +101,6 @@ public class PredictionResultFragment extends Fragment {
         tvCOPDStatus = view.findViewById(R.id.tvCOPDStatus);
         tvCancerStatus = view.findViewById(R.id.tvCancerStatus);
 
-        // Buttons
         btnConsultDoctor = view.findViewById(R.id.btnConsultDoctor);
         btnTrackProgress = view.findViewById(R.id.btnTrackProgress);
 
@@ -127,38 +122,29 @@ public class PredictionResultFragment extends Fragment {
     }
 
     private void setUpUI(Predict data) {
-        // Set basic info
         tvTitle.setText("Lung Health Assessment");
         tvRiskLevel.setText(data.getRiskLevel());
         tvRiskScore.setText(String.format("%.0f%% Risk Score", data.getRiskScore()));
 
-        // Format tanggal
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         tvDate.setText(sdf.format(data.getCreatedAt()));
 
-        // Setup risk level styling
         setupRiskLevelStyling(data.getRiskLevel());
 
-        // Set key factors
         setupKeyFactors(data);
 
-        // Generate prediction details
         setupPredictionDetails(data);
 
-        // Recommendations
         setupRecommendations(data);
     }
 
     private void setupKeyFactors(Predict data) {
-        // Smoking History
         tvSmokingDesc.setText(getSmokingDescription(data.getSmokingHistory()));
         setStatusIndicator(smokingIndicator, getSmokingRiskLevel(data.getSmokingHistory()));
 
-        // Breathing Difficulty
         tvBreathingDesc.setText(getBreathingDescription(data.getBreathingDifficulty()));
         setStatusIndicator(breathingIndicator, getBreathingRiskLevel(data.getBreathingDifficulty()));
 
-        // Age
         tvAgeDesc.setText(data.getAge() + " years (" + getAgeRiskDescription(data.getAge()) + ")");
         setStatusIndicator(ageIndicator, getAgeRiskLevel(data.getAge()));
     }
@@ -166,25 +152,21 @@ public class PredictionResultFragment extends Fragment {
     private void setupPredictionDetails(Predict data) {
         float riskScore = data.getRiskScore();
 
-        // Lung Capacity
         int lungCapacity = Math.max(40, (int)(100 - riskScore));
         tvLungCapacity.setText(lungCapacity + "%");
         tvLungCapacityStatus.setText(lungCapacity > 80 ? "Good" : lungCapacity > 60 ? "Moderate" : "Caution");
         setStatusBadge(tvLungCapacityStatus, tvLungCapacityStatus.getText().toString().toLowerCase());
 
-        // Respiratory Rate
         String respRate = riskScore > 50 ? "Elevated" : "Normal";
         tvRespiratoryRate.setText(respRate);
         tvRespiratoryStatus.setText(respRate.equals("Normal") ? "Good" : "Caution");
         setStatusBadge(tvRespiratoryStatus, tvRespiratoryStatus.getText().toString().toLowerCase());
 
-        // Oxygen Saturation
         int oxygenSat = Math.max(85, (int)(100 - (riskScore / 3)));
         tvOxygenSat.setText(oxygenSat + "%");
         tvOxygenStatus.setText(oxygenSat > 95 ? "Good" : oxygenSat > 90 ? "Moderate" : "Caution");
         setStatusBadge(tvOxygenStatus, tvOxygenStatus.getText().toString().toLowerCase());
 
-        // COPD Risk
         String copdRisk = riskScore > 60 ? "High" : "Low";
         tvCOPDRisk.setText(copdRisk);
         tvCOPDStatus.setText(copdRisk.equals("Low") ? "Good" : "Caution");
