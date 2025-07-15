@@ -18,7 +18,6 @@ public class ProfileFragment extends Fragment {
     Button btnSignOut, btnEditProfile;
 
     public ProfileFragment() {
-        // Required empty public constructor
     }
 
     @Nullable
@@ -29,16 +28,9 @@ public class ProfileFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        // Initialize views
         initializeViews(view);
-
-        // Load user data
         loadUserData();
-
-        // Setup button listeners
         setupButtonListeners();
-
         return view;
     }
 
@@ -54,7 +46,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadUserData() {
-        // Get data from MainActivity
         if (getActivity() instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) getActivity();
 
@@ -63,7 +54,6 @@ public class ProfileFragment extends Fragment {
             String gender = mainActivity.getUserGender();
             String tanggalLahir = mainActivity.getUserTanggalLahir();
 
-            // Set data to views
             tvFullName.setText(nama);
             tvEmail.setText(email);
             tvFullNameInfo.setText(nama);
@@ -72,16 +62,13 @@ public class ProfileFragment extends Fragment {
             tvTanggalLahir.setText(tanggalLahir);
         }
     }
-
     private void setupButtonListeners() {
         if (btnSignOut != null) {
             btnSignOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Handle sign out logic
                     if (getActivity() != null) {
                         getActivity().finish();
-                        // You can also redirect to login activity here
                     }
                 }
             });
@@ -91,7 +78,6 @@ public class ProfileFragment extends Fragment {
             btnEditProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Navigate to EditProfileFragment using getParentFragmentManager()
                     if (getActivity() != null) {
                         getParentFragmentManager()
                                 .beginTransaction()

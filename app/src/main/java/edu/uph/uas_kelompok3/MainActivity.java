@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         userData_gender = gender;
         userData_tanggalLahir = tanggalLahir;
 
-        // Optionally save to SharedPreferences for persistence
         getSharedPreferences("UserData", MODE_PRIVATE)
                 .edit()
                 .putString("nama", nama)
