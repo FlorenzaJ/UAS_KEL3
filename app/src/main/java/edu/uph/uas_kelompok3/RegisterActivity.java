@@ -3,6 +3,7 @@ package edu.uph.uas_kelompok3;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -115,5 +116,14 @@ public class RegisterActivity extends AppCompatActivity {
         intent.putExtra("gender", spnGender.getText().toString().trim());
         intent.putExtra("tanggalLahir", edtTanggalLahir.getText().toString().trim());
         startActivity(intent);
+
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        prefs.edit()
+                .putString("nama", edtNama.getText().toString().trim())
+                .putString("email", edtEmail.getText().toString().trim())
+                .putString("gender", spnGender.getText().toString().trim())
+                .putString("tanggalLahir", edtTanggalLahir.getText().toString().trim())
+                .apply();
+
     }
 }

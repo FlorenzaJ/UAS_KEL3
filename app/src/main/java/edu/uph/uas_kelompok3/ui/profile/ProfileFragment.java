@@ -1,5 +1,6 @@
 package edu.uph.uas_kelompok3.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.uph.uas_kelompok3.MainActivity;
+import edu.uph.uas_kelompok3.Model.UserModel;
 import edu.uph.uas_kelompok3.R;
+import edu.uph.uas_kelompok3.RegisterActivity;
 
 public class ProfileFragment extends Fragment {
     TextView tvFullName, tvEmail, tvGender, tvTanggalLahir;
@@ -48,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private void loadUserData() {
         if (getActivity() instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) getActivity();
+            UserModel user = mainActivity.getUserModel();
 
             String nama = mainActivity.getUserNama();
             String email = mainActivity.getUserEmail();
@@ -68,7 +72,15 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (getActivity() != null) {
-                        getActivity().finish();
+                        getActivity().getSharedPreferences("UserData", getActivity().MODE_PRIVATE)
+                                .edit()
+                                .clear()
+                                .apply();
+
+                        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish(); // Tutup activity sekarang
                     }
                 }
             });

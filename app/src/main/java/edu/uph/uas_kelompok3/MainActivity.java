@@ -1,14 +1,15 @@
 package edu.uph.uas_kelompok3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.uph.uas_kelompok3.databinding.ActivityMainBinding;
+import edu.uph.uas_kelompok3.Model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -21,12 +22,33 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        userData_nama = prefs.getString("nama", "N/A");
+        userData_email = prefs.getString("email", "N/A");
+        userData_gender = prefs.getString("gender", "N/A");
+        userData_tanggalLahir = prefs.getString("tanggalLahir", "N/A");
+
         Intent intent = getIntent();
         if (intent != null) {
             userData_nama = intent.getStringExtra("nama");
             userData_email = intent.getStringExtra("email");
             userData_gender = intent.getStringExtra("gender");
             userData_tanggalLahir = intent.getStringExtra("tanggalLahir");
+
+            getSharedPreferences("UserData", MODE_PRIVATE)
+                    .edit()
+                    .putString("nama", userData_nama)
+                    .putString("email", userData_email)
+                    .putString("gender", userData_gender)
+                    .putString("tanggalLahir", userData_tanggalLahir)
+                    .apply();
+        }
+
+        if (userData_nama == null) {
+            userData_nama = getSharedPreferences("UserData", MODE_PRIVATE).getString("nama", "N/A");
+            userData_email = getSharedPreferences("UserData", MODE_PRIVATE).getString("email", "N/A");
+            userData_gender = getSharedPreferences("UserData", MODE_PRIVATE).getString("gender", "N/A");
+            userData_tanggalLahir = getSharedPreferences("UserData", MODE_PRIVATE).getString("tanggalLahir", "N/A");
         }
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -66,5 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 .putString("gender", gender)
                 .putString("tanggalLahir", tanggalLahir)
                 .apply();
+    }
+
+    public UserModel getUserModel() {
+        return new UserModel(
+                getUserNama(),
+                getUserEmail(),
+                getUserGender(),
+                getUserTanggalLahir()
+        );
     }
 }

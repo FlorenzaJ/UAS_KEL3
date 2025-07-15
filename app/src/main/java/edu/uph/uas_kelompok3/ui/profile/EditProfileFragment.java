@@ -36,7 +36,6 @@ public class EditProfileFragment extends Fragment {
     private String originalNama, originalEmail, originalGender, originalTanggalLahir;
 
     public EditProfileFragment() {
-        // Required empty public constructor
     }
 
     @Nullable
@@ -48,7 +47,6 @@ public class EditProfileFragment extends Fragment {
         setupGenderSpinner();
         loadCurrentData();
         setupClickListeners();
-
         return view;
     }
 
@@ -82,12 +80,10 @@ public class EditProfileFragment extends Fragment {
             originalGender = mainActivity.getUserGender();
             originalTanggalLahir = mainActivity.getUserTanggalLahir();
 
-            // Set current data to form fields
             edtFullName.setText(originalNama);
             edtEmail.setText(originalEmail);
             edtDateOfBirth.setText(originalTanggalLahir);
 
-            // Set gender spinner selection
             String[] genderOptions = {"Male", "Female", "Other"};
             for (int i = 0; i < genderOptions.length; i++) {
                 if (genderOptions[i].equals(originalGender)) {
@@ -196,7 +192,6 @@ public class EditProfileFragment extends Fragment {
         String newGender = spnGender.getSelectedItem().toString();
         String newTanggalLahir = edtDateOfBirth.getText().toString().trim();
 
-        // Update data in MainActivity
         if (getActivity() instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.updateUserData(newNama, newEmail, newGender, newTanggalLahir);
@@ -204,7 +199,6 @@ public class EditProfileFragment extends Fragment {
 
         Toast.makeText(getContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show();
 
-        // Navigate back to profile
         if (getActivity() != null) {
             getActivity().onBackPressed();
         }
