@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), RegisterActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        getActivity().finish(); // Tutup activity sekarang
+                        getActivity().finish();
                     }
                 }
             });
@@ -90,13 +90,8 @@ public class ProfileFragment extends Fragment {
             btnEditProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getActivity() != null) {
-                        getParentFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.nav_host_fragment_activity_main, new EditProfileFragment())
-                                .addToBackStack(null)
-                                .commit();
-                    }
+                    androidx.navigation.Navigation.findNavController(v)
+                        .navigate(R.id.action_profileFragment_to_editProfileFragment);
                 }
             });
         }

@@ -19,6 +19,7 @@ public class Predict extends RealmObject {
     private String riskLevel;
     private float riskScore;
     private Date createdAt = new Date();
+    private String userId;
 
     public String getId() {
         return id;
@@ -106,5 +107,12 @@ public class Predict extends RealmObject {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

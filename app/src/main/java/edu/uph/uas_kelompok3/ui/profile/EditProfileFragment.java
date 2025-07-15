@@ -105,7 +105,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-        // Header save button
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +112,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-        // Bottom save button
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +119,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-        // Date picker for date of birth
         edtDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

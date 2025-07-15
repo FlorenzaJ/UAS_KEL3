@@ -54,9 +54,20 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         realm = Realm.getDefaultInstance();
-        predictions = realm.where(Predict.class)
+        String userId = null;
+        if (getActivity() instanceof edu.uph.uas_kelompok3.MainActivity) {
+            userId = ((edu.uph.uas_kelompok3.MainActivity) getActivity()).getUserEmail();
+        }
+        if (userId != null) {
+            predictions = realm.where(Predict.class)
+                .equalTo("userId", userId)
                 .sort("createdAt", Sort.DESCENDING)
                 .findAll();
+        } else {
+            predictions = realm.where(Predict.class)
+                .sort("createdAt", Sort.DESCENDING)
+                .findAll();
+        }
 
         adapter = new PredictionAdapter(predictions);
         rcvRecentPredictions.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -42,6 +42,7 @@ public class PredictFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_predict, container, false);
 
+        // Initialize views
         etAge = root.findViewById(R.id.et_age);
         actvGender = root.findViewById(R.id.actv_gender);
         actvSmokingHistory = root.findViewById(R.id.actv_smoking_history);
@@ -51,6 +52,7 @@ public class PredictFragment extends Fragment {
         sliderBreathingDifficulty = root.findViewById(R.id.slider_breathing_difficulty);
         btnGenerate = root.findViewById(R.id.btn_generate_prediction);
 
+        // Initial setup for dropdowns
         setupAllDropdowns();
 
         btnGenerate.setOnClickListener(v -> generatePrediction());
@@ -58,10 +60,11 @@ public class PredictFragment extends Fragment {
         return root;
     }
 
+    // RE-SET dropdown setiap fragment ditampilkan kembali
     @Override
     public void onResume() {
         super.onResume();
-        setupAllDropdowns();
+        setupAllDropdowns(); // Agar dropdown tetap bisa dipilih berkali-kali
     }
 
     private void setupAllDropdowns() {
@@ -89,6 +92,7 @@ public class PredictFragment extends Fragment {
         String chronic = actvChronicConditions.getText().toString();
         float breathingDifficulty = sliderBreathingDifficulty.getValue();
 
+        // Validation
         if (ageStr.isEmpty() || gender.isEmpty() || smoking.isEmpty() || cough.isEmpty() || allergy.isEmpty() || chronic.isEmpty()) {
             Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
@@ -125,6 +129,13 @@ public class PredictFragment extends Fragment {
                 prediction.setRiskLevel(predictedRisk);
                 prediction.setRiskScore(predictedScore);
                 prediction.setCreatedAt(new Date());
+                String userId = null;
+                if (getActivity() instanceof edu.uph.uas_kelompok3.MainActivity) {
+                    userId = ((edu.uph.uas_kelompok3.MainActivity) getActivity()).getUserEmail();
+                }
+                if (userId != null) {
+                    prediction.setUserId(userId);
+                }
             });
 
             Bundle bundle = new Bundle();
@@ -133,6 +144,9 @@ public class PredictFragment extends Fragment {
             navController.navigate(R.id.action_predictFragment_to_predictionResultFragment, bundle);
 
             Toast.makeText(getContext(), "Prediction generated successfully!", Toast.LENGTH_SHORT).show();
+
+            // Optional: Reset form untuk prediksi berikutnya
+            // resetForm();
 
         } catch (Exception e) {
             Toast.makeText(getContext(), "Error saving prediction: " + e.getMessage(), Toast.LENGTH_SHORT).show();

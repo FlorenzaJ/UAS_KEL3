@@ -333,14 +333,9 @@ public class PredictionResultFragment extends Fragment {
             android.widget.Toast.makeText(getContext(), "Consultation feature coming soon!", android.widget.Toast.LENGTH_SHORT).show();
         });
 
-//        btnTrackProgress.setOnClickListener(v -> {
-//            NavController navController = Navigation.findNavController(v);
-//            navController.popBackStack();
-//        });
-
-//        btnTrackProgress.setOnClickListener(v -> {
-//            finish();
-//        });
+        btnTrackProgress.setOnClickListener(v -> {
+            android.widget.Toast.makeText(getContext(), "Track progress feature coming soon!", android.widget.Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override

@@ -9,7 +9,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Realm.init(this); // Inisialisasi Realm sekali saja
+        Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("lunghealth.realm")
                 .allowWritesOnUiThread(true)
