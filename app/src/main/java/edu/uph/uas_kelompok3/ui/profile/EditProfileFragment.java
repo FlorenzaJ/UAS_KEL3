@@ -95,7 +95,6 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void setupClickListeners() {
-        // Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

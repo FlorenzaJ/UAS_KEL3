@@ -94,7 +94,6 @@
 
         </LinearLayout>
 
-        <!-- Edit Form Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +103,6 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="24dp">
 
-            <!-- Full Name Field -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,7 +131,6 @@
 
             </LinearLayout>
 
-            <!-- Date of Birth Field -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,7 +161,6 @@
 
             </LinearLayout>
 
-            <!-- Gender Field -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,7 +185,6 @@
 
             </LinearLayout>
 
-            <!-- Email Field -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +215,6 @@
 
         </LinearLayout>
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/btnSaveChanges"
             android:layout_width="match_parent"
