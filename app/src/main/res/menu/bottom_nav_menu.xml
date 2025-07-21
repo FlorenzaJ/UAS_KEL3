@@ -12,6 +12,11 @@
         android:title="Predict" />
 
     <item
+        android:id="@+id/nav_consult"
+        android:icon="@drawable/ic_consult"
+        android:title="Consult" />
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
         android:title="Profile" />

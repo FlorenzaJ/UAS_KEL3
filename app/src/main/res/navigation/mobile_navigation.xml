@@ -26,6 +26,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_consult"
+        android:name="edu.uph.uas_kelompok3.ConsultFragment"
+        android:label="Consultation"
+        tools:layout="@layout/fragment_consult">
+        <action
+            android:id="@+id/action_consultFragment_to_bookAppointmentDetailsFragment"
+            app:destination="@id/bookAppointmentDetailsFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_profile"
         android:name="edu.uph.uas_kelompok3.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
@@ -50,4 +60,27 @@
             android:name="predictionId"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/bookAppointmentDetailsFragment"
+        android:name="edu.uph.uas_kelompok3.BookAppointmentDetailsFragment"
+        android:label="Book Appointment"
+        tools:layout="@layout/fragment_book_appointment_details">
+        <action
+            android:id="@+id/action_bookAppointmentDetailsFragment_to_bookAppointmentConfirmFragment"
+            app:destination="@id/bookAppointmentConfirmFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookAppointmentConfirmFragment"
+        android:name="edu.uph.uas_kelompok3.BookAppointmentConfirmFragment"
+        android:label="Book Appointment"
+        tools:layout="@layout/fragment_book_appointment_confirm">
+        <action
+            android:id="@+id/action_bookAppointmentConfirmFragment_to_consultFragment"
+            app:destination="@id/nav_consult"
+            app:popUpTo="@id/nav_consult"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

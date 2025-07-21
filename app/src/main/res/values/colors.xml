@@ -21,4 +21,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#E7FFFB</color>
+    <color name="grey_text">#666666</color>
+    <color name="grey_stroke">#E0E0E0</color>
+    <color name="yellow_star">#FFC107</color>
 </resources>
