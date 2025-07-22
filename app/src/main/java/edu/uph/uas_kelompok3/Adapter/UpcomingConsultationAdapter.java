@@ -67,7 +67,7 @@ public class UpcomingConsultationAdapter extends RecyclerView.Adapter<UpcomingCo
         } else if ("Chat".equals(consultation.getAppointmentType())) {
             holder.ivTypeIcon.setImageResource(R.drawable.ic_chat);
         } else {
-            holder.ivTypeIcon.setImageResource(R.drawable.ic_profile); // Default for In-person
+            holder.ivTypeIcon.setImageResource(R.drawable.ic_profile);
         }
 
         holder.btnJoinNow.setOnClickListener(v -> {

@@ -74,15 +74,15 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.Pr
         switch (riskLevel) {
             case "Low":
                 backgroundResId = R.drawable.status_badge_low;
-                textColor = Color.parseColor("#166534"); // cadmium_green
+                textColor = Color.parseColor("#166534");
                 break;
             case "Moderate":
                 backgroundResId = R.drawable.status_badge_moderate;
-                textColor = Color.parseColor("#E65100"); // persimmon
+                textColor = Color.parseColor("#E65100");
                 break;
             case "High":
                 backgroundResId = R.drawable.status_badge_high;
-                textColor = Color.parseColor("#991B1B"); // dev_maroon
+                textColor = Color.parseColor("#991B1B");
                 break;
             default:
                 backgroundResId = R.drawable.status_badge_caution;

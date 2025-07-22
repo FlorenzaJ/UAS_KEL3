@@ -93,20 +93,10 @@ public class BookAppointmentDetailsFragment extends Fragment {
 
     private void initViews(View view) {
         btnBack = view.findViewById(R.id.btnBack);
-
-        // PERBAIKAN: Pastikan ID yang dicari sesuai dengan tipe View di XML
-        // actv_select_doctor adalah AutoCompleteTextView
         actvSelectDoctor = view.findViewById(R.id.actv_select_doctor);
-
-        // et_appointment_date adalah TextInputEditText
         etAppointmentDate = view.findViewById(R.id.et_appointment_date);
-
-        // actv_appointment_time adalah AutoCompleteTextView
         actvAppointmentTime = view.findViewById(R.id.actv_appointment_time);
-
-        // et_reason_for_visit adalah TextInputEditText
         etReasonForVisit = view.findViewById(R.id.et_reason_for_visit);
-
         rgAppointmentType = view.findViewById(R.id.rg_appointment_type);
         btnContinue = view.findViewById(R.id.btn_continue);
     }

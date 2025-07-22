@@ -98,13 +98,13 @@ public class ConsultFragment extends Fragment {
                 case 2:
                     return new PastConsultationsFragment();
                 default:
-                    return new AvailableDoctorsFragment(); // Default to Available
+                    return new AvailableDoctorsFragment();
             }
         }
 
         @Override
         public int getItemCount() {
-            return 3; // Number of tabs
+            return 3;
         }
     }
 }

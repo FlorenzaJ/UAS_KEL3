@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
@@ -330,7 +331,12 @@ public class PredictionResultFragment extends Fragment {
 
     private void setupClickListeners() {
         btnConsultDoctor.setOnClickListener(v -> {
-            android.widget.Toast.makeText(getContext(), "Consultation feature coming soon!", android.widget.Toast.LENGTH_SHORT).show();
+            if (getActivity() != null) {
+                BottomNavigationView bottomNav = getActivity().findViewById(R.id.nav_view);
+                if (bottomNav != null) {
+                    bottomNav.setSelectedItemId(R.id.nav_consult);
+                }
+            }
         });
 
         btnTrackProgress.setOnClickListener(v -> {

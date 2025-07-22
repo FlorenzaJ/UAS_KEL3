@@ -1,5 +1,7 @@
 package edu.uph.uas_kelompok3;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import edu.uph.uas_kelompok3.Adapter.UpcomingConsultationAdapter;
@@ -29,6 +32,8 @@ public class UpcomingConsultationsFragment extends Fragment {
     private Realm realm;
     private UpcomingConsultationAdapter adapter;
     private RealmResults<Consultation> upcomingConsultations;
+    private static final String PREFS_NAME = "LungHealthPrefs";
+    private static final String KEY_USER_ID = "currentUserId";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,28 @@ public class UpcomingConsultationsFragment extends Fragment {
         tvNoUpcomingConsultations = view.findViewById(R.id.tv_no_upcoming_consultations);
 
         realm = Realm.getDefaultInstance();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startOfToday = calendar.getTime();
+
+        SharedPreferences prefs = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String currentUserId = prefs.getString(KEY_USER_ID, null);
+
+        if (currentUserId == null) {
+            tvNoUpcomingConsultations.setText("No upcoming consultations.");
+            tvNoUpcomingConsultations.setVisibility(View.VISIBLE);
+            rvUpcomingConsultations.setVisibility(View.GONE);
+            return view;
+        }
+
         upcomingConsultations = realm.where(Consultation.class)
+                .equalTo("userId", currentUserId)
                 .equalTo("status", "Upcoming")
-                .greaterThanOrEqualTo("appointmentDate", new Date()) // Hanya yang belum lewat
+                .greaterThanOrEqualTo("appointmentDate", startOfToday)
                 .sort("appointmentDate", Sort.ASCENDING)
                 .sort("appointmentTime", Sort.ASCENDING)
                 .findAll();

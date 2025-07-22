@@ -1,5 +1,7 @@
 package edu.uph.uas_kelompok3;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +35,15 @@ public class BookAppointmentConfirmFragment extends Fragment {
     private TextView tvConfirmDoctor, tvConfirmDate, tvConfirmTime, tvConfirmType, tvConfirmReason;
     private MaterialButton btnBackConfirm, btnConfirmBooking;
     private String doctorName, doctorSpecialty, appointmentDate, appointmentTime, appointmentType, reasonForVisit;
+    private static final String PREFS_NAME = "LungHealthPrefs";
+    private static final String KEY_USER_ID = "currentUserId";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             doctorName = getArguments().getString("doctorName");
-            doctorSpecialty = getArguments().getString("doctorSpecialty"); // Get specialty
+            doctorSpecialty = getArguments().getString("doctorSpecialty");
             appointmentDate = getArguments().getString("appointmentDate");
             appointmentTime = getArguments().getString("appointmentTime");
             appointmentType = getArguments().getString("appointmentType");
@@ -94,49 +98,42 @@ public class BookAppointmentConfirmFragment extends Fragment {
             Realm realm = null;
             try {
                 realm = Realm.getDefaultInstance();
-                SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-                // Sesuaikan format waktu jika berbeda (misal: "hh:mm a" untuk 12-jam dengan AM/PM)
-                SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm a", Locale.US);
-
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                 Date parsedDate = null;
-                Date parsedTime = null;
                 try {
-                    parsedDate = sdfDate.parse(appointmentDate);
-                    parsedTime = sdfTime.parse(appointmentTime);
+                    parsedDate = sdf.parse(appointmentDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Error parsing date/time: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error parsing date: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Gabungkan tanggal dan waktu menjadi satu objek Date
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(parsedDate); // Set bagian tanggal
-                Calendar timeCalendar = Calendar.getInstance();
-                timeCalendar.setTime(parsedTime); // Set bagian waktu
+                Date finalParsedDate = parsedDate;
 
-                calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
-                calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
-                calendar.set(Calendar.SECOND, 0); // Reset detik dan milidetik untuk konsistensi
-                calendar.set(Calendar.MILLISECOND, 0);
+                SharedPreferences prefs = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                String currentUserId = prefs.getString(KEY_USER_ID, null);
+                if (currentUserId == null) {
+                    currentUserId = UUID.randomUUID().toString();
+                    prefs.edit().putString(KEY_USER_ID, currentUserId).apply();
+                    Toast.makeText(getContext(), "New user ID generated: " + currentUserId, Toast.LENGTH_SHORT).show();
+                }
 
-                Date finalAppointmentDateTime = calendar.getTime();
-
+                String finalCurrentUserId = currentUserId;
                 realm.executeTransaction(r -> {
                     Consultation newConsultation = r.createObject(Consultation.class, UUID.randomUUID().toString());
+                    newConsultation.setUserId(finalCurrentUserId);
                     newConsultation.setDoctorName(doctorName);
                     newConsultation.setDoctorSpecialty(doctorSpecialty);
-                    newConsultation.setAppointmentDate(finalAppointmentDateTime); // Simpan tanggal dan waktu lengkap
-                    newConsultation.setAppointmentTime(appointmentTime); // Tetap simpan string waktu untuk tampilan jika diperlukan
+                    newConsultation.setAppointmentDate(finalParsedDate);
+                    newConsultation.setAppointmentTime(appointmentTime);
                     newConsultation.setAppointmentType(appointmentType);
                     newConsultation.setReasonForVisit(reasonForVisit);
-                    newConsultation.setStatus("Upcoming"); // Status default untuk booking baru
+                    newConsultation.setStatus("Upcoming");
                     newConsultation.setCreatedAt(new Date());
                 });
 
-                Toast.makeText(getContext(), "Appointment confirmed for " + new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault()).format(finalAppointmentDateTime), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Appointment confirmed!", Toast.LENGTH_LONG).show();
 
-                // Setelah booking berhasil, kembali ke ConsultFragment (tab Available)
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_bookAppointmentConfirmFragment_to_consultFragment);
 

@@ -53,10 +53,8 @@ public class AvailableDoctorsFragment extends Fragment {
         doctors.add(new Doctor("Dr. Michael Chen", "Pulmonologist", 4.9f, 124, "Available Today"));
         doctors.add(new Doctor("Dr. Emily Rodriguez", "Respiratory Specialist", 4.8f, 98, "Available Tomorrow"));
         doctors.add(new Doctor("Dr. James Wilson", "Pulmonary Rehabilitation", 4.7f, 86, "Available Today"));
-        // Tambahkan lebih banyak dokter jika diperlukan
 
         doctorAdapter = new DoctorAdapter(doctors, doctor -> {
-            // Handle klik pada tombol "Book" di item dokter
             navigateToBookAppointmentDetails(doctor.getName());
         });
         rvDoctors.setAdapter(doctorAdapter);
@@ -64,7 +62,7 @@ public class AvailableDoctorsFragment extends Fragment {
 
     private void setupClickListeners() {
         btnBookAppointmentBottom.setOnClickListener(v -> {
-            navigateToBookAppointmentDetails(null); // Navigasi tanpa memilih dokter terlebih dahulu
+            navigateToBookAppointmentDetails(null);
         });
     }
 

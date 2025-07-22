@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Consultation extends RealmObject{
     @PrimaryKey
     private String id;
+    private String userId;
     private String doctorName;
     private String doctorSpecialty;
     private Date appointmentDate;
@@ -26,13 +27,23 @@ public class Consultation extends RealmObject{
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getDoctorName() {
         return doctorName;
     }
+
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
     }
@@ -40,6 +51,7 @@ public class Consultation extends RealmObject{
     public String getDoctorSpecialty() {
         return doctorSpecialty;
     }
+
     public void setDoctorSpecialty(String doctorSpecialty) {
         this.doctorSpecialty = doctorSpecialty;
     }
@@ -47,6 +59,7 @@ public class Consultation extends RealmObject{
     public Date getAppointmentDate() {
         return appointmentDate;
     }
+
     public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
@@ -54,6 +67,7 @@ public class Consultation extends RealmObject{
     public String getAppointmentTime() {
         return appointmentTime;
     }
+
     public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
@@ -61,6 +75,7 @@ public class Consultation extends RealmObject{
     public String getAppointmentType() {
         return appointmentType;
     }
+
     public void setAppointmentType(String appointmentType) {
         this.appointmentType = appointmentType;
     }
@@ -68,12 +83,15 @@ public class Consultation extends RealmObject{
     public String getReasonForVisit() {
         return reasonForVisit;
     }
+
     public void setReasonForVisit(String reasonForVisit) {
-        this.reasonForVisit = reasonForVisit; }
+        this.reasonForVisit = reasonForVisit;
+    }
 
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -81,6 +99,7 @@ public class Consultation extends RealmObject{
     public Date getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
